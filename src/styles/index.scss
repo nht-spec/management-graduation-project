@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+p{
+    margin: unset !important;
+}
+
+.layout-container{
+  height: 100vh;
+}
+
+@import"./pages/login/login";
+@import"./pages/authenticatedlayout/authenticatedlayout";
+@import"./antd_design.scss"

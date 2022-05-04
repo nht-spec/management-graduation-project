@@ -1,0 +1,23 @@
+@import "../../variables";
+
+.logo{
+    display: flex;
+    align-items: center;
+// width: 300px;
+    .logo_text{
+        padding-left: 20px;
+        font-family: "Poppins";
+        font-weight: 500;
+        font-size: 20px;
+    }
+    .logo_hiden{
+        display: none;
+    }
+}
+
+.header-layout{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+

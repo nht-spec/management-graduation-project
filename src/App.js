@@ -1,11 +1,9 @@
+import '../src/styles/index.scss';
 import './App.css';
+import Routes from './routes/Routes';
 
 function App() {
-	return (
-		<div className='App'>
-			<h2>Hello Word</h2>
-		</div>
-	);
+	return <Routes />;
 }
 
 export default App;

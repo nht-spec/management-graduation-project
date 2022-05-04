@@ -1,0 +1,25 @@
+@import "../../variables";
+
+.login_container_wrapper{
+position: relative;
+height: 100vh;
+}
+
+.image_background{
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../../assets/images/login.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    // filter: blur(3px);
+    // -webkit-filter: blur(3px);
+}
+
+
+// .text_input{
+//     color: #{$--primary-tlr-blue};
+// }
+
