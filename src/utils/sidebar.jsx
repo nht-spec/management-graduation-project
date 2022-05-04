@@ -11,7 +11,6 @@ export const getGeneralSidebarMenu = () => [
 			{
 				key: 'dashboard',
 				label: 'Danh sách',
-
 				icon: (props) => <UserOutlined {...props} />,
 			},
 		],

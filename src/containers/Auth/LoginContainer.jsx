@@ -1,6 +1,7 @@
 import { Card, Col, Row } from 'antd';
 import React from 'react';
 import LoginForm from '../../components/Auth/LoginForm';
+
 export default function LoginContainer(props) {
 	return (
 		<Row align='middle' justify='center' className='login_container_wrapper'>
