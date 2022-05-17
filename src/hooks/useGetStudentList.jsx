@@ -6,11 +6,11 @@ function useGetStudentList(socket, current, pageSize) {
 	const [studentList, setStudentList] = useState(null);
 	const [updateStudent, setUpdateStudent] = useState(null);
 
-	// useEffect(() => {
-	// 	socket?.on('updateStudent', (data) => {
-	// 		setUpdateStudent(data);
-	// 	});
-	// }, [socket]);
+	useEffect(() => {
+		socket?.on('updateStudent', (data) => {
+			setUpdateStudent(data);
+		});
+	}, [socket]);
 
 	useEffect(() => {
 		(async () => {
