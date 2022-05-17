@@ -6,7 +6,7 @@ export default function useSocket(props) {
 	const [socket, setSocket] = useState(null);
 
 	useEffect(() => {
-		setSocket(io(`${API_KEYS.BASE_URL_LOCAL}`));
+		setSocket(io(`${API_KEYS.BASE_URL}`));
 	}, []);
 
 	return {
