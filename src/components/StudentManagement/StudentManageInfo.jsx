@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import studentApi from '../../api/studentApi';
 import useGetStudentIdList from '../../hooks/useGetStudentIdList';
 import useGetStudentList from '../../hooks/useGetStudentList';
@@ -48,9 +48,29 @@ function StudentManageInfo({ width }) {
 		setListSelect(studentId);
 	};
 
+	//DELETE ONE
+	const onRowRemoving = async (e) => {
+		const data = e?.data._id;
+
+		if (data) {
+			try {
+				await studentApi.delete({ listSelect: [data] });
+				message.success('Xoá thành công!');
+			} catch (err) {
+				message.error(err);
+			}
+		}
+	};
+
+	//DELETE ROW SELECT
 	const handleDelete = async () => {
 		if (listSelect.length !== 0) {
-			await studentApi.delete({ listSelect });
+			try {
+				await studentApi.delete({ listSelect });
+				message.success('Xoá thành công!');
+			} catch (err) {
+				message.error(err);
+			}
 		}
 	};
 
@@ -83,9 +103,9 @@ function StudentManageInfo({ width }) {
 		setIsExpan(true);
 	};
 
-	// useEffect(() => {
-	// 	setCurrent(1);
-	// }, [updateStudent]);
+	useEffect(() => {
+		setCurrent(1);
+	}, [updateStudent]);
 
 	const onInitNewRow = () => {
 		setIsAddRow(true);
@@ -102,12 +122,12 @@ function StudentManageInfo({ width }) {
 	const validateStudent = (e) => {
 		const result = studentIdList.filter((mssv) => mssv === e.value);
 
-		if (!isAddRow && e.value === studentId) {
+		if (e.value === studentId) {
 			return result;
 		}
-		if (!isAddRow && e.value !== studentId && result.length === 0) {
-			return result;
-		}
+		// if (!isAddRow && e.value !== studentId && result.length === 0) {
+		// 	return result;
+		// }
 
 		if (isAddRow && result.length === 0) {
 			return result;
@@ -139,8 +159,9 @@ function StudentManageInfo({ width }) {
 				handleDelete={handleDelete}
 				onSelectionChanged={onSelectionChanged}
 				dataSource={studentList?.results}
-				onRowUpdating={onRowUpdating}
 				onRowInserting={onRowInserting}
+				onRowUpdating={onRowUpdating}
+				onRowRemoving={onRowRemoving}
 				onDetailClick={onDetailClick}
 				TitleLabel={TitleLabel}
 				isAddFalse={isAddFalse}
@@ -150,6 +171,7 @@ function StudentManageInfo({ width }) {
 				onEditCanceled={onEditCanceled}
 				onEditingStart={onEditingStart}
 				onExporting={onExporting}
+				listSelect={listSelect}
 			/>
 
 			<DetailStudentInfo

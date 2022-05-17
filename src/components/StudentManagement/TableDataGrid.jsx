@@ -4,9 +4,9 @@ import DataGrid, {
 	CustomRule,
 	Editing,
 	Export,
+	FilterRow,
 	Form,
 	Grouping,
-	HeaderFilter,
 	Lookup,
 	PatternRule,
 	RequiredRule,
@@ -26,8 +26,9 @@ function TableDataGrid(props) {
 		handleDelete,
 		onSelectionChanged,
 		dataSource,
-		onRowUpdating,
 		onRowInserting,
+		onRowUpdating,
+		onRowRemoving,
 		onDetailClick,
 		TitleLabel,
 		validateStudent,
@@ -35,6 +36,7 @@ function TableDataGrid(props) {
 		onEditCanceled,
 		onEditingStart,
 		onExporting,
+		listSelect,
 	} = props;
 
 	return (
@@ -47,16 +49,16 @@ function TableDataGrid(props) {
 				allowColumnReordering={true}
 				noDataText='Không có dữ liệu'
 				dataSource={dataSource}
-				onRowUpdating={onRowUpdating}
 				onRowInserting={onRowInserting}
+				onRowUpdating={onRowUpdating}
+				onRowRemoving={onRowRemoving}
 				onSelectionChanged={onSelectionChanged}
 				onInitNewRow={onInitNewRow}
 				onEditCanceled={onEditCanceled}
 				onEditingStart={onEditingStart}
 				onExporting={onExporting}
 			>
-				{/* <FilterRow visible='auto' /> */}
-				<HeaderFilter visible={true} />
+				<FilterRow visible='auto' />
 				<Selection
 					mode='multiple'
 					showCheckBoxesMode='always'
@@ -65,11 +67,11 @@ function TableDataGrid(props) {
 				/>
 
 				<SearchPanel
-					searchVisibleColumnsOnly={true}
 					visible={true}
 					highlightCaseSensitive={true}
-					placeholder='Tìm kiếm'
+					placeholder='Tìm kiếm...'
 				/>
+
 				<Grouping autoExpandAll={true} />
 				<Editing
 					mode='form'
@@ -85,6 +87,7 @@ function TableDataGrid(props) {
 					/>
 					<Form labelLocation='top' />
 				</Editing>
+
 				<Toolbar>
 					<Item location='before' render={TitleLabel} />
 					<Item
@@ -95,6 +98,7 @@ function TableDataGrid(props) {
 					/>
 					<Item name='searchPanel' locateInMenu='auto' />
 					<Item
+						disabled={dataSource?.length === 0 ? true : false}
 						name='exportButton'
 						location='after'
 						showText='auto'
@@ -112,7 +116,12 @@ function TableDataGrid(props) {
 						locateInMenu='auto'
 					/>
 
-					<Item name='deletePanel' location='after' locateInMenu='auto'>
+					<Item
+						name='deletePanel'
+						location='after'
+						locateInMenu='auto'
+						disabled={listSelect.length === 0 ? true : false}
+					>
 						<Buttons
 							icon='trash'
 							type='danger'
@@ -126,8 +135,8 @@ function TableDataGrid(props) {
 				<Export
 					enabled={true}
 					texts={{
-						exportAll: 'Xuất tất cả',
-						exportSelectedRows: 'Xuất các hàng đã chọn',
+						exportAll: 'Xuất tất cả.',
+						exportSelectedRows: 'Xuất các hàng đã chọn.',
 					}}
 					allowExportSelectedData={true}
 				/>
@@ -185,9 +194,10 @@ function TableDataGrid(props) {
 				/>
 				<Column dataField='note' caption='Ghi chú' />
 
-				<Column width={80} type='buttons' fixed={true} fixedPosition='left'>
+				<Column type='buttons' fixed={true} fixedPosition='right'>
 					<Button name='edit' />
-					<Button icon='detailslayout' onClick={onDetailClick} />
+					<Button name='delete' />
+					<Button icon='overflow' onClick={onDetailClick} />
 				</Column>
 			</DataGrid>
 		</>
