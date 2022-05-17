@@ -28,9 +28,18 @@ export const dataForm = [
 		title: 'Tên đề tài tiếng việt',
 		placeholder: MESSAGE.PLACEHOLDER.vntopic,
 		optionChoose: [
-			'Website bán quần áo',
-			'Website đặt vé xem phim',
-			'App quản lí chi tiêu',
+			{
+				id: 1,
+				value: 'Website bán quần áo',
+			},
+			{
+				id: 2,
+				value: 'Website đặt vé xem phim',
+			},
+			{
+				id: 3,
+				value: 'App quản lí chi tiêu',
+			},
 		],
 		required: false,
 		messageRequired: '',
@@ -43,9 +52,18 @@ export const dataForm = [
 		placeholder: MESSAGE.PLACEHOLDER.entopic,
 		title: 'Tên đề tài tiếng anh',
 		optionChoose: [
-			'Website sell clothes',
-			'Website Cinema ticket booking',
-			'Expense Management App',
+			{
+				id: 1,
+				value: 'Website sell clothes',
+			},
+			{
+				id: 2,
+				value: 'Website Cinema ticket booking',
+			},
+			{
+				id: 3,
+				value: 'Expense Management App',
+			},
 		],
 		required: false,
 		messageRequired: '',
@@ -58,9 +76,18 @@ export const dataForm = [
 		title: 'Giảng viên hướng dẫn',
 		placeholder: MESSAGE.PLACEHOLDER.instructor,
 		optionChoose: [
-			'ThS. Bùi Thanh Bình',
-			'TS. Lê Kim Hùng',
-			'ThS. Trần Hồng Nghi',
+			{
+				id: 1,
+				value: 'ThS. Bùi Thanh Bình',
+			},
+			{
+				id: 2,
+				value: 'TS. Lê Kim Hùng',
+			},
+			{
+				id: 3,
+				value: 'ThS. Trần Hồng Nghi',
+			},
 		],
 		required: false,
 		messageRequired: '',

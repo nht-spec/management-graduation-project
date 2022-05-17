@@ -6,7 +6,7 @@ import DataGrid, {
 	Export,
 	Form,
 	Grouping,
-	GroupPanel,
+	HeaderFilter,
 	Lookup,
 	PatternRule,
 	RequiredRule,
@@ -55,17 +55,17 @@ function TableDataGrid(props) {
 				onEditingStart={onEditingStart}
 				onExporting={onExporting}
 			>
+				{/* <FilterRow visible='auto' /> */}
+				<HeaderFilter visible={true} />
 				<Selection
 					mode='multiple'
 					showCheckBoxesMode='always'
 					fixed={true}
 					fixedPosition='left'
 				/>
-				<GroupPanel
-					visible='auto'
-					emptyPanelText='Kéo tiêu đề cột vào đây để nhóm.'
-				/>
+
 				<SearchPanel
+					searchVisibleColumnsOnly={true}
 					visible={true}
 					highlightCaseSensitive={true}
 					placeholder='Tìm kiếm'
@@ -122,6 +122,7 @@ function TableDataGrid(props) {
 						/>
 					</Item>
 				</Toolbar>
+
 				<Export
 					enabled={true}
 					texts={{
@@ -142,13 +143,28 @@ function TableDataGrid(props) {
 					<RequiredRule message='Họ và tên là bắt buộc' />
 				</Column>
 				<Column dataField='vntopic' caption='Tên đề tài tiếng việt'>
-					<Lookup dataSource={dataForm[2].optionChoose} />
+					<Lookup
+						dataSource={dataForm[2].optionChoose}
+						valueExpr='value'
+						displayExpr='value'
+						searchExpr='value'
+					/>
 				</Column>
 				<Column dataField='entopic' caption='Tên đề tài tiếng anh'>
-					<Lookup dataSource={dataForm[3].optionChoose} />
+					<Lookup
+						dataSource={dataForm[3].optionChoose}
+						valueExpr='value'
+						displayExpr='value'
+						searchExpr='value'
+					/>
 				</Column>
 				<Column dataField='instructor' caption='Giảng viên hướng dẫn'>
-					<Lookup dataSource={dataForm[4].optionChoose} />
+					<Lookup
+						dataSource={dataForm[4].optionChoose}
+						valueExpr='value'
+						displayExpr='value'
+						searchExpr='value'
+					/>
 				</Column>
 				<Column caption='Thông tin liên lạc của sinh viên'>
 					<Column dataField='email' caption='Email'>
