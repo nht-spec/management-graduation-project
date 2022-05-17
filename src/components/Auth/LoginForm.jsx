@@ -13,7 +13,6 @@ export default function LoginForm(props) {
 	const profile = localStorage.getItem('profile');
 	const history = useHistory();
 	// const dispatch = useDispatch();
-
 	const [loading, setLoading] = useState(false);
 	const res = ['gmail.com', 'gm.uit.edu.vn'];
 	const form = useForm({

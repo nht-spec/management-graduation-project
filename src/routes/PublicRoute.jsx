@@ -1,15 +1,35 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 export default function PublicRoute(props) {
-	const { path, exact, component } = props;
+	const {
+		component: InnerComponent,
+		docTitle,
+		layout: Layout,
+		location: { pathname },
+		...rest
+	} = props;
 
 	return (
 		<Route
-			path={path}
-			exact={exact}
-			component={component}
-			// {...rest}
+			{...rest}
+			render={(props) => (
+				<>
+					<HelmetProvider>
+						<Helmet>
+							<title>{docTitle}</title>
+						</Helmet>
+					</HelmetProvider>
+
+					{Layout && (
+						<Layout>
+							<InnerComponent {...props} />
+						</Layout>
+					)}
+					{!Layout && <InnerComponent {...props} />}
+				</>
+			)}
 		/>
 	);
 }

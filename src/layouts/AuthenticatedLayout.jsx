@@ -6,19 +6,19 @@ import {
 import { Avatar, Drawer, Dropdown, Layout, Menu } from 'antd';
 import ResizeObserver from 'rc-resize-observer';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { getGeneralSidebarMenu } from '../utils/sidebar';
 
 function AuthenticatedLayout(props) {
+	const { children } = props;
+	const history = useHistory();
+	const location = useLocation();
+	const { Header, Sider, Content, Footer } = Layout;
+	const profile = localStorage.getItem('profile');
 	const [collapsed, setCollapsed] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [tableWidth, setTableWidth] = useState(0);
-	const profile = localStorage.getItem('profile');
-	const { children } = props;
-	const { Header, Sider, Content, Footer } = Layout;
-	const history = useHistory();
-
-	const items = getGeneralSidebarMenu();
+	const items = getGeneralSidebarMenu(collapsed);
 
 	if (profile == null) {
 		history.push('/');
@@ -62,13 +62,15 @@ function AuthenticatedLayout(props) {
 
 	const handleClick = (e) => {
 		if (e.key) {
-			history.push(`${e.key}`);
+			history.push(`/${e.key}`);
 		}
 		if (e.key && tableWidth < 768) {
-			history.push(`${e.key}`);
+			history.push(`/${e.key}`);
 			setVisible(!visible);
 		}
 	};
+
+	const pathname = location.pathname.split('/');
 
 	return (
 		<ResizeObserver
@@ -78,16 +80,27 @@ function AuthenticatedLayout(props) {
 		>
 			<Layout className='layout-container'>
 				{tableWidth >= 768 ? (
-					<Sider trigger={null} theme='light' collapsible collapsed={collapsed}>
+					<Sider
+						trigger={null}
+						theme='light'
+						collapsible
+						collapsed={collapsed}
+						width={250}
+					>
 						<div className='logo'>
 							<IconLogo />
 							<p className={!collapsed ? 'logo_text' : 'logo_hiden'}>CMGP</p>
 						</div>
 						<Menu
+							style={{
+								fontFamily: 'Be Vietnam Pro',
+								fontWeight: 600,
+							}}
 							onClick={handleClick}
 							theme='light'
 							mode='inline'
-							defaultSelectedKeys={['dashboard']}
+							defaultSelectedKeys={[`${pathname[1]}`]}
+							selectedKeys={[`${pathname[1]}`]}
 							items={items}
 						/>
 					</Sider>
@@ -106,7 +119,7 @@ function AuthenticatedLayout(props) {
 							onClick={handleClick}
 							theme='light'
 							mode='inline'
-							defaultSelectedKeys={['dashboard']}
+							defaultSelectedKeys={[`${location.pathname.slice(1)}`]}
 							items={items}
 						/>
 					</Drawer>
@@ -137,16 +150,7 @@ function AuthenticatedLayout(props) {
 							/>
 						</Dropdown>
 					</Header>
-					<Content
-						className='site-layout-background'
-						style={{
-							margin: '24px 16px',
-							padding: 24,
-							minHeight: 280,
-						}}
-					>
-						{children}
-					</Content>
+					<Content className='content-layout'>{children}</Content>
 					<Footer>@2022</Footer>
 				</Layout>
 			</Layout>

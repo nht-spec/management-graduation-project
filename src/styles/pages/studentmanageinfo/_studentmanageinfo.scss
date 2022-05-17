@@ -1,0 +1,92 @@
+
+
+@import '../../_variables.scss';
+
+
+.student-list-title{
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 6px;
+}
+
+.pagination{
+    float:right;
+    display: flex;
+    margin-top: 10px;
+    .page-size-options{
+        margin-left: 10px;
+    }
+}
+
+
+.dx-toolbar-menu-section .dx-toolbar-hidden-button .dx-toolbar-item-auto-hide {
+    padding: 10px;
+}
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item .dx-icon {
+    color: unset !important;
+}
+
+@media only screen and (max-width: #{$ss_xl}) {
+.dx-datagrid-search-panel {
+     margin: unset !important
+}
+
+
+}
+
+@media only screen and (max-width: #{$ss_md}) {
+    .delete-button {
+        padding: 5px 10px !important;
+    }
+
+}
+    
+
+// .dx-dropdownmenu-popup-wrapper .dx-overlay-content .dx-popup-content {
+//     padding:  10px;
+// }
+
+
+// .add-student-button{
+//     margin-top: 20px;
+//   align-items: center;
+// }
+
+.dx-list:not(.dx-list-select-decorator-enabled)
+.dx-list-item.dx-state-hover{
+    background-color:unset !important ;
+    border-color: unset !important ;
+ }
+
+
+ .custom-button {
+    background-color: #5cb85b !important;
+    border-color: #ddd !important;
+    color: #fff !important;
+    width: unset !important;
+    // margin-left: 5px !important;
+}
+
+
+.custom-button:hover {
+    background-color: #36a165  !important;
+    border-color: transparent  !important;
+}
+
+.dx-datagrid-addrow-button .dx-icon-edit-button-addrow::before {
+    color: #fff;
+}
+
+.dx-datagrid-export-button .dx-icon-export-to::before {
+    color: #fff;
+}
+
+.dx-icon-spindown::before {
+    content: "\f001";
+    color: #fff;
+}
+.dx-dropdownbutton-action.dx-buttongroup-last-item.dx-button .dx-button-content {
+    background-color: burlywood;
+    color: #fff;
+}

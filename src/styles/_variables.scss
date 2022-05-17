@@ -2,9 +2,16 @@
 $min-width: 320px;
 $ss_xm: 375px;
 $ss_sm: 480px;
-$ss_md: 768px;
+// $ss_md: 768px;
+$ss_md: 820px;
 $ss_lg: 1024px;
 $ss_xl: 1336px;
+
+
+//Spacing
+
+$--spacing-15: 15px;
+
 
 // color
 $--neutral-grey: #373737;
@@ -22,7 +29,8 @@ $--neutral-lightest-grey: #e5e4e4;
 $--neutral-blue-25: #ebf0ff;
 $--neutral-wine-red: #af1427;
 $--semantic-green: #00a560;
-
+$--dodger-blue :#1990ff;
+$--darkslate-blue:#5e35b1;
 $--status-mint: #43bdd4;
 $--status-light-mint: #d9f2f6;
 $--status-orange: #ffa761;
@@ -31,3 +39,14 @@ $--status-pink: #ff8c9d;
 $--status-light-pink: #ffe8eb;
 $--semantic-green: #00a560;
 $--semantic-lightest-green: #66c9a0;
+
+
+//boder
+
+$--border-card: 8px;
+
+
+
+// box-shadow
+$--box-shadow-sidebar: rgb(20 20 20 / 12%) 0rem 0.25rem 0.375rem -0.0625rem, rgb(20 20 20 / 7%) 0rem 0.125rem 0.25rem -0.0625rem;;
+$--box-shadow-main: 0 5px 10px #ddd;

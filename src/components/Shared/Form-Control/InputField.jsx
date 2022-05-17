@@ -1,3 +1,4 @@
+import { Input } from 'antd';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
@@ -10,6 +11,7 @@ export default function InputField(props) {
 		messageRequired,
 		regex,
 		messagePattern,
+		error,
 	} = props;
 
 	return (
@@ -26,7 +28,13 @@ export default function InputField(props) {
 					message: messagePattern,
 				},
 			}}
-			render={({ field }) => <input {...field} placeholder={placeholder} />}
+			render={({ field }) => (
+				<Input
+					status={error[name]?.message ? 'error' : ''}
+					{...field}
+					placeholder={placeholder}
+				/>
+			)}
 		/>
 	);
 }

@@ -22,9 +22,11 @@ export default function PrivateRoute(props) {
 						</Helmet>
 					</HelmetProvider>
 
-					<Layout>
-						<InnerComponent {...props} />
-					</Layout>
+					{Layout && (
+						<Layout>
+							<InnerComponent {...props} />
+						</Layout>
+					)}
 				</>
 			)}
 		/>

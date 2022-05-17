@@ -3,7 +3,6 @@
 .logo{
     display: flex;
     align-items: center;
-// width: 300px;
     .logo_text{
         padding-left: 20px;
         font-family: "Poppins";
@@ -21,3 +20,18 @@
     justify-content: space-between;
 }
 
+.sidebar{
+    padding: 5px;
+    background-color: #ebecfa;
+    color: #{$--darkslate-blue} !important;
+    border-radius: 5px;
+    box-shadow: #{$--box-shadow-sidebar}
+}
+
+.sidebar-collaped{
+    font-size: 23px !important;
+}
+
+.content-layout{
+    margin: 10px;
+}
