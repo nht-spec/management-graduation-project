@@ -1,0 +1,64 @@
+@import"./variables";
+
+body{
+  // font-family: 'Be Vietnam Pro' !important;
+}
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+p{
+    margin: unset !important;
+}
+
+
+
+.layout-container{
+min-height: 100vh;
+}
+.card-ms-form {
+  box-shadow: #{$--box-shadow-main};
+  border-radius: #{$--border-card};
+
+}
+
+.mg-b-15 {
+  margin-bottom: #{$--spacing-15};
+}
+
+.border-card{
+  border-radius: #{$--border-card};
+}
+
+
+.ant-card-body {
+  padding:  #{$--spacing-15};
+}
+
+.ant-page-header-heading-extra {
+  display: flex;
+}
+
+.ant-page-header {
+  padding: unset !important
+}
+
+.ant-breadcrumb-link{
+  font-family: 'Be Vietnam Pro';
+  font-weight: 500;
+}
+
+td[role=columnheader] {  
+  text-align: center!important;
+
+}  
+
+
+
+@import"./pages/login/login";
+@import"./pages/authenticatedlayout/authenticatedlayout";
+@import"./pages/studentmanageinfo/studentmanageinfo";
+@import"./antd_design.scss";

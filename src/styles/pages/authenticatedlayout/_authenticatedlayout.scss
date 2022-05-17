@@ -1,0 +1,37 @@
+@import "../../variables";
+
+.logo{
+    display: flex;
+    align-items: center;
+    .logo_text{
+        padding-left: 20px;
+        font-family: "Poppins";
+        font-weight: 500;
+        font-size: 20px;
+    }
+    .logo_hiden{
+        display: none;
+    }
+}
+
+.header-layout{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar{
+    padding: 5px;
+    background-color: #ebecfa;
+    color: #{$--darkslate-blue} !important;
+    border-radius: 5px;
+    box-shadow: #{$--box-shadow-sidebar}
+}
+
+.sidebar-collaped{
+    font-size: 23px !important;
+}
+
+.content-layout{
+    margin: 10px;
+}
