@@ -103,31 +103,32 @@ function StudentManageInfo({ width }) {
 		setIsExpan(true);
 	};
 
-	useEffect(() => {
-		setCurrent(1);
-	}, [updateStudent]);
+	// useEffect(() => {
+	// 	setCurrent(1);
+	// }, [updateStudent]);
 
 	const onInitNewRow = () => {
 		setIsAddRow(true);
 	};
 
-	const onEditCanceled = () => {
-		setIsAddRow(false);
-	};
+	// const onEditCanceled = () => {
+	// 	setIsAddRow(false);
+	// };
 
 	const onEditingStart = (e) => {
 		setStudentId(e.data.mssv);
+		setIsAddRow(false);
 	};
 
 	const validateStudent = (e) => {
 		const result = studentIdList.filter((mssv) => mssv === e.value);
 
-		if (e.value === studentId) {
+		if (!isAddRow && e.value === studentId && result.length !== 0) {
 			return result;
 		}
-		// if (!isAddRow && e.value !== studentId && result.length === 0) {
-		// 	return result;
-		// }
+		if (!isAddRow && e.value !== studentId && result.length === 0) {
+			return result;
+		}
 
 		if (isAddRow && result.length === 0) {
 			return result;
@@ -168,7 +169,7 @@ function StudentManageInfo({ width }) {
 				loading={loading}
 				validateStudent={validateStudent}
 				onInitNewRow={onInitNewRow}
-				onEditCanceled={onEditCanceled}
+				// onEditCanceled={onEditCanceled}
 				onEditingStart={onEditingStart}
 				onExporting={onExporting}
 				listSelect={listSelect}

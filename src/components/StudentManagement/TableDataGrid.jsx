@@ -33,7 +33,7 @@ function TableDataGrid(props) {
 		TitleLabel,
 		validateStudent,
 		onInitNewRow,
-		onEditCanceled,
+		// onEditCanceled,
 		onEditingStart,
 		onExporting,
 		listSelect,
@@ -54,7 +54,7 @@ function TableDataGrid(props) {
 				onRowRemoving={onRowRemoving}
 				onSelectionChanged={onSelectionChanged}
 				onInitNewRow={onInitNewRow}
-				onEditCanceled={onEditCanceled}
+				// onEditCanceled={onEditCanceled}
 				onEditingStart={onEditingStart}
 				onExporting={onExporting}
 			>
@@ -84,6 +84,7 @@ function TableDataGrid(props) {
 						addRow='Thêm mới'
 						cancelRowChanges='Hủy bỏ'
 						saveRowChanges='Lưu'
+						confirmDeleteMessage='Bạn có chắc chắn muốn xóa sinh viên này không?'
 					/>
 					<Form labelLocation='top' />
 				</Editing>
