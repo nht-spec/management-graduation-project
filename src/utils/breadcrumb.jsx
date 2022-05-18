@@ -4,5 +4,9 @@ const getNameMap = (entityId, entityDisplay, t) => ({
 		displayName: 'Quản lý sinh viên',
 		isNavigable: true,
 	},
+	'/lecturer_management': {
+		displayName: 'Quản lý giảng viên',
+		isNavigable: true,
+	},
 });
 export default getNameMap;
