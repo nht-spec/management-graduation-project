@@ -10,6 +10,7 @@ import PublicRoute from './PublicRoute.jsx';
 import dashboardRoutes from './route-sets/dashboard';
 import demoRoutes from './route-sets/demo';
 import studentmanagementRoutes from './route-sets/studentmanagement';
+import lecturermanagementRoutes from './route-sets/lecturermanagement';
 
 const AuthenticatedLayout = loadable(() =>
 	import('../layouts/AuthenticatedLayout')
@@ -24,6 +25,7 @@ const Routes = () => {
 		...dashboardRoutes,
 		...demoRoutes,
 		...studentmanagementRoutes,
+		...lecturermanagementRoutes,
 	];
 
 	return (

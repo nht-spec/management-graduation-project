@@ -22,7 +22,7 @@ export const getGeneralSidebarMenu = (collapsed) => [
 		),
 	},
 	{
-		key: 'demo',
+		key: 'lecturer_management',
 		label: 'Quản lý giảng viên',
 		icon: (
 			<IdcardOutlined

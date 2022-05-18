@@ -21,6 +21,7 @@ function StudentManageInfo({ width }) {
 	const [isExpan, setIsExpan] = useState(false);
 	const [isAddRow, setIsAddRow] = useState(false);
 	const [studentId, setStudentId] = useState('');
+	const [gridRef, setGridRef] = useState('');
 
 	function onChange(current, pageSize) {
 		setCurrent(current);
@@ -111,10 +112,6 @@ function StudentManageInfo({ width }) {
 		setIsAddRow(true);
 	};
 
-	// const onEditCanceled = () => {
-	// 	setIsAddRow(false);
-	// };
-
 	const onEditingStart = (e) => {
 		setStudentId(e.data.mssv);
 		setIsAddRow(false);
@@ -169,7 +166,6 @@ function StudentManageInfo({ width }) {
 				loading={loading}
 				validateStudent={validateStudent}
 				onInitNewRow={onInitNewRow}
-				// onEditCanceled={onEditCanceled}
 				onEditingStart={onEditingStart}
 				onExporting={onExporting}
 				listSelect={listSelect}
