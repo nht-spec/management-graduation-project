@@ -1,6 +1,48 @@
 import MESSAGE from '../../constants/message-key';
 import REGEX_KEY from '../../constants/regex-key';
 
+export const detailStudent = (e) => {
+	const data = [
+		{ name: `${e.key.mssv}`, value: `${e.key.mssv}`, title: 'MSSV' },
+
+		{ name: `${e.key.name}`, value: `${e.key.name}`, title: 'Họ và tên' },
+		{
+			name: `${e.key.vntopic}`,
+			value: `${e.key.vntopic}`,
+			title: 'Tên đề tài tiếng việt',
+		},
+		{
+			name: `${e.key.entopic}`,
+			value: `${e.key.entopic}`,
+			title: 'Tên đề tài tiếng anh',
+		},
+		{
+			name: `${e.key.instructor}`,
+			value: `${e.key.instructor}`,
+			title: 'Giảng viên hướng dẫn',
+		},
+		{ name: `${e.key.email}`, value: `${e.key.email}`, title: 'Email' },
+		{
+			name: `${e.key.phone}`,
+			value: `${e.key.phone}`,
+			title: 'Số điện thoại',
+		},
+		{
+			name: `${e.key.samestudentwork}`,
+			value: `${e.key.samestudentwork}`,
+			title: 'STT sinh viên làm cùng đề tài',
+		},
+
+		{
+			name: `${e.key?.note}`,
+			value: `${e.key?.note}`,
+			title: 'Ghi chú',
+		},
+	];
+
+	return data;
+};
+
 export const dataForm = [
 	{
 		id: '1',

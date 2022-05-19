@@ -10,6 +10,7 @@ import TableDataGrid from './TableDataGrid';
 import { Workbook } from 'exceljs';
 import { saveAs } from 'file-saver';
 import { exportDataGrid } from 'devextreme/excel_exporter';
+import { detailStudent } from './dataForm';
 
 function StudentManageInfo({ width }) {
 	const [listSelect, setListSelect] = useState([]);
@@ -21,7 +22,7 @@ function StudentManageInfo({ width }) {
 	const [isExpan, setIsExpan] = useState(false);
 	const [isAddRow, setIsAddRow] = useState(false);
 	const [studentId, setStudentId] = useState('');
-	const [gridRef, setGridRef] = useState('');
+	const [fields, setFields] = useState([{ name: [], value: '' }]);
 
 	function onChange(current, pageSize) {
 		setCurrent(current);
@@ -41,6 +42,15 @@ function StudentManageInfo({ width }) {
 				<p className='student-list-title'>Danh sách sinh viên đăng ký</p>
 			</div>
 		);
+	};
+
+	const onRowExpanding = (e) => {
+		e.component.collapseAll(-1);
+		setFields(detailStudent(e));
+	};
+
+	const DetailTemplate = () => {
+		return <DetailStudentInfo fields={fields} />;
 	};
 
 	const onSelectionChanged = (key) => {
@@ -160,6 +170,7 @@ function StudentManageInfo({ width }) {
 				onRowInserting={onRowInserting}
 				onRowUpdating={onRowUpdating}
 				onRowRemoving={onRowRemoving}
+				onRowExpanding={onRowExpanding}
 				onDetailClick={onDetailClick}
 				TitleLabel={TitleLabel}
 				isAddFalse={isAddFalse}
@@ -169,12 +180,7 @@ function StudentManageInfo({ width }) {
 				onEditingStart={onEditingStart}
 				onExporting={onExporting}
 				listSelect={listSelect}
-			/>
-
-			<DetailStudentInfo
-				detailInfo={detailInfo}
-				isExpan={isExpan}
-				setIsExpan={setIsExpan}
+				DetailTemplate={DetailTemplate}
 			/>
 
 			<Paginations
