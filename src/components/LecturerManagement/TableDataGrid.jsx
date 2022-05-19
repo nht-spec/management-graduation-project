@@ -1,11 +1,11 @@
 import DataGrid, {
 	Button,
 	Column,
-	CustomRule,
 	Editing,
 	Export,
 	FilterRow,
 	Form,
+	Item,
 	Lookup,
 	MasterDetail,
 	PatternRule,
@@ -15,32 +15,28 @@ import DataGrid, {
 	Texts,
 	Toolbar,
 } from 'devextreme-react/data-grid';
-import { Item } from 'devextreme-react/form';
 import React, { useEffect, useRef } from 'react';
 import REGEX_KEY from '../../constants/regex-key';
 import Buttons from '../Shared/Buttons';
-import { dataForm } from './dataForm';
+import { genderOption } from './dataLecturer';
 
 function TableDataGrid(props) {
+	const gridRef = useRef(null);
+
 	const {
-		handleDelete,
-		onSelectionChanged,
-		dataSource,
-		onRowInserting,
-		onRowUpdating,
-		onRowRemoving,
-		TitleLabel,
-		validateStudent,
-		onInitNewRow,
-		onEditingStart,
-		onExporting,
-		listSelect,
 		loading,
+		dataSource,
+		handleDelete,
+		TitleLabel,
 		DetailTemplate,
 		onRowExpanding,
+		onSelectionChanged,
+		onRowUpdating,
+		onRowRemoving,
+		onRowInserting,
+		onExporting,
+		listSelect,
 	} = props;
-
-	const gridRef = useRef(null);
 
 	useEffect(() => {
 		if (loading) {
@@ -52,21 +48,19 @@ function TableDataGrid(props) {
 
 	return (
 		<DataGrid
-			onRowExpanding={onRowExpanding}
+			noDataText='Không có dữ liệu'
 			showBorders={true}
 			showRowLines={true}
 			showColumnLines={true}
 			columnAutoWidth={true}
 			allowColumnReordering={true}
 			ref={gridRef}
-			noDataText='Không có dữ liệu'
+			onRowExpanding={onRowExpanding}
+			onSelectionChanged={onSelectionChanged}
 			dataSource={dataSource}
-			onRowInserting={onRowInserting}
 			onRowUpdating={onRowUpdating}
 			onRowRemoving={onRowRemoving}
-			onSelectionChanged={onSelectionChanged}
-			onInitNewRow={onInitNewRow}
-			onEditingStart={onEditingStart}
+			onRowInserting={onRowInserting}
 			onExporting={onExporting}
 		>
 			<FilterRow visible='auto' />
@@ -158,56 +152,57 @@ function TableDataGrid(props) {
 				allowExportSelectedData={true}
 			/>
 
-			<Column dataField='mssv' caption='MSSV'>
-				<RequiredRule message='Mã số sinh viên là bắt buộc' />
-				<CustomRule
-					validationCallback={validateStudent}
-					message='Sinh viên đã tồn tại, thử lại!'
-				/>
-			</Column>
 			<Column dataField='name' caption='Họ và tên'>
 				<RequiredRule message='Họ và tên là bắt buộc' />
 			</Column>
-			<Column dataField='vntopic' caption='Tên đề tài tiếng việt'>
+
+			<Column dataField='gender' caption='Giới tính'>
+				<RequiredRule message='Chọn giới tính' />
 				<Lookup
-					dataSource={dataForm[2].optionChoose}
+					dataSource={genderOption}
 					valueExpr='value'
 					displayExpr='value'
 					searchExpr='value'
 				/>
 			</Column>
-			<Column dataField='entopic' caption='Tên đề tài tiếng anh'>
-				<Lookup
-					dataSource={dataForm[3].optionChoose}
-					valueExpr='value'
-					displayExpr='value'
-					searchExpr='value'
-				/>
-			</Column>
-			<Column dataField='instructor' caption='Giảng viên hướng dẫn'>
-				<Lookup
-					dataSource={dataForm[4].optionChoose}
-					valueExpr='value'
-					displayExpr='value'
-					searchExpr='value'
-				/>
-			</Column>
-			<Column caption='Thông tin liên lạc của sinh viên'>
-				<Column dataField='email' caption='Email'>
-					<PatternRule message='Email không hợp lệ' pattern={REGEX_KEY.email} />
-				</Column>
-				<Column
-					dataField='phone'
-					caption='Số điện thoại'
-					alignment='center'
-					dataType='number'
-				/>
-			</Column>
+
 			<Column
-				dataField='samestudentwork'
-				caption='STT sinh viên làm cùng đề tài'
-			/>
-			<Column dataField='note' caption='Ghi chú' />
+				dataField='dateofbirth'
+				caption='Năm sinh'
+				dataType='date'
+				format='dd/MM/yyyy'
+			>
+				<RequiredRule message='Chọn ngày tháng năm sinh' />
+			</Column>
+
+			<Column dataField='email' caption='Email'>
+				<RequiredRule message='Email là bắt buộc' />
+				<PatternRule message='Email không hợp lệ' pattern={REGEX_KEY.email} />
+			</Column>
+
+			<Column dataField='phone' caption='Số điện thoại' dataType='number'>
+				<RequiredRule message='Số điện thoại là bắt buộc' />
+			</Column>
+
+			<Column dataField='address' caption='Địa chỉ'>
+				<RequiredRule message='Địa chỉ là bắt buộc' />
+			</Column>
+
+			<Column dataField='unit' caption='Đơn vị'>
+				<RequiredRule message='Nhập đơn vị' />
+			</Column>
+
+			<Column dataField='faculty' caption='Khoa'>
+				<RequiredRule message='Nhập khoa' />
+			</Column>
+
+			<Column dataField='degree' caption='Học vị'>
+				<RequiredRule message='Nhập học vị' />
+			</Column>
+
+			<Column dataField='position' caption='Chức vụ'>
+				<RequiredRule message='Nhập chức vụ' />
+			</Column>
 
 			<Column type='buttons' fixed={true} fixedPosition='right'>
 				<Button name='edit' />

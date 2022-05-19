@@ -12,6 +12,13 @@ const PageHeaderContainer = loadable(
 	}
 );
 
+const LecturerManageInfo = loadable(
+	() => import('../../components/LecturerManagement/LecturerManageInfo'),
+	{
+		fallback: <Loading />,
+	}
+);
+
 function LecturerManageContainer(props) {
 	const [width, setWith] = useState(0);
 
@@ -20,7 +27,6 @@ function LecturerManageContainer(props) {
 			<PageHeaderContainer
 				title='Quản lý giảng viên'
 				icon={<IdcardOutlined className='sidebar' />}
-				// width={width}
 			/>
 
 			<ResizeObserver
@@ -29,7 +35,9 @@ function LecturerManageContainer(props) {
 				}}
 			>
 				<div className='page-section'>
-					<Card className='card-ms-form border-card mg-b-15'></Card>
+					<Card className='card-ms-form border-card mg-b-15'>
+						<LecturerManageInfo />
+					</Card>
 				</div>
 			</ResizeObserver>
 		</>
