@@ -177,3 +177,14 @@ export const dataForm = [
 		messagePattern: '',
 	},
 ];
+
+export const dataFormAddClass = {
+	id: 1,
+	name: 'addclass',
+	title: 'Mã lớp',
+	placeholder: MESSAGE.PLACEHOLDER.addclass,
+	required: true,
+	messageRequired: MESSAGE.REQUIRE.addclass,
+	regex: '',
+	messagePattern: '',
+};

@@ -2,10 +2,8 @@ import { message } from 'antd';
 import { exportDataGrid } from 'devextreme/excel_exporter';
 import { Workbook } from 'exceljs';
 import { saveAs } from 'file-saver';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import studentApi from '../../api/studentApi';
-import { addStudentId } from '../../app/studentIdSlice';
 import useGetStudentIdList from '../../hooks/useGetStudentIdList';
 import useGetStudentList from '../../hooks/useGetStudentList';
 import useSocket from '../../hooks/useSocket';
@@ -14,18 +12,15 @@ import { detailStudent } from './dataForm';
 import DetailStudentInfo from './DetailStudentInfo';
 import TableDataGrid from './TableDataGrid';
 
-function StudentManageInfo({ width, classChange, defaultClass }) {
+function StudentManageInfo({ width, activeClassId, defaultActiveClassId }) {
 	const [listSelect, setListSelect] = useState([]);
 	const pageSizeOptions = [5, 10, 15];
 	const [current, setCurrent] = useState(1);
 	const [pageSize, setPageSize] = useState(5);
-	const [detailInfo, setDetailInfo] = useState(null);
 	const [isAddFalse, setIsAddFalse] = useState(false);
-	const [isExpan, setIsExpan] = useState(false);
 	const [isAddRow, setIsAddRow] = useState(false);
 	const [studentId, setStudentId] = useState('');
 	const [fields, setFields] = useState([{ name: [], value: '' }]);
-	const dispatch = useDispatch();
 
 	function onChange(current, pageSize) {
 		setCurrent(current);
@@ -38,15 +33,9 @@ function StudentManageInfo({ width, classChange, defaultClass }) {
 		socket,
 		current,
 		pageSize,
-		classChange,
-		defaultClass
+		activeClassId,
+		defaultActiveClassId
 	);
-
-	useEffect(() => {
-		const studentID = studentList?.results?.map((child) => child._id);
-		const action = addStudentId(studentID);
-		dispatch(action);
-	}, [studentList]);
 
 	const TitleLabel = () => {
 		return (
@@ -100,9 +89,8 @@ function StudentManageInfo({ width, classChange, defaultClass }) {
 	const onRowInserting = async (value) => {
 		const data = {
 			...value.data,
-			class: classChange ? classChange : defaultClass,
+			classId: activeClassId ? activeClassId : defaultActiveClassId,
 		};
-
 		try {
 			await studentApi.create({ newListStudent: [data] });
 			message.success('Thêm thành công!');
@@ -123,12 +111,6 @@ function StudentManageInfo({ width, classChange, defaultClass }) {
 			message.error(`${err}`);
 			setIsAddFalse(true);
 		}
-	};
-
-	const onDetailClick = (e) => {
-		const data = e.row.data;
-		setDetailInfo(data);
-		setIsExpan(true);
 	};
 
 	// useEffect(() => {
@@ -188,7 +170,6 @@ function StudentManageInfo({ width, classChange, defaultClass }) {
 				onRowUpdating={onRowUpdating}
 				onRowRemoving={onRowRemoving}
 				onRowExpanding={onRowExpanding}
-				onDetailClick={onDetailClick}
 				TitleLabel={TitleLabel}
 				isAddFalse={isAddFalse}
 				loading={loading}

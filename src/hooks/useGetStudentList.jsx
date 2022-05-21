@@ -5,8 +5,8 @@ function useGetStudentList(
 	socket,
 	current,
 	pageSize,
-	classChange,
-	defaultClass
+	activeClassId,
+	defaultActiveClassId
 ) {
 	const [loading, setLoading] = useState(false);
 	const [studentList, setStudentList] = useState(null);
@@ -24,13 +24,13 @@ function useGetStudentList(
 			const result = await studentApi.get({
 				page: current,
 				limit: pageSize,
-				class: classChange ? classChange : defaultClass,
+				classid: activeClassId ? activeClassId : defaultActiveClassId,
 			});
 			setStudentList(result.data);
 			// setUpdateStudent(null);
 		})();
 		setLoading(false);
-	}, [updateStudent, current, pageSize, classChange, defaultClass]);
+	}, [updateStudent, current, pageSize, activeClassId, defaultActiveClassId]);
 
 	return { updateStudent, loading, studentList };
 }
