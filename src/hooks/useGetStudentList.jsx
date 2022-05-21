@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import studentApi from '../api/studentApi';
 
-function useGetStudentList(socket, current, pageSize) {
+function useGetStudentList(
+	socket,
+	current,
+	pageSize,
+	classChange,
+	defaultClass
+) {
 	const [loading, setLoading] = useState(false);
 	const [studentList, setStudentList] = useState(null);
 	const [updateStudent, setUpdateStudent] = useState(null);
@@ -15,12 +21,16 @@ function useGetStudentList(socket, current, pageSize) {
 	useEffect(() => {
 		(async () => {
 			setLoading(true);
-			const result = await studentApi.get({ page: current, limit: pageSize });
+			const result = await studentApi.get({
+				page: current,
+				limit: pageSize,
+				class: classChange ? classChange : defaultClass,
+			});
 			setStudentList(result.data);
 			// setUpdateStudent(null);
-			setLoading(false);
 		})();
-	}, [updateStudent, current, pageSize]);
+		setLoading(false);
+	}, [updateStudent, current, pageSize, classChange, defaultClass]);
 
 	return { updateStudent, loading, studentList };
 }
