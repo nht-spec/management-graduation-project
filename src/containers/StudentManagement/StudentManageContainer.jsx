@@ -22,8 +22,8 @@ const StudentManageInfo = loadable(
 
 function StudentManageContainer(props) {
 	const [width, setWith] = useState(0);
-	const [classChange, setClassChange] = useState('');
-	const [defaultClass, setDefaultClass] = useState('');
+	const [defaultActiveClassId, setDefaultActiveClassId] = useState('');
+	const [activeClassId, setActiveClassId] = useState('');
 
 	return (
 		<>
@@ -41,16 +41,15 @@ function StudentManageContainer(props) {
 				<div className='page-section'>
 					<Card className='card-ms-form border-card mg-b-15'>
 						<ClassInfo
-							classChange={setClassChange}
-							defaultClass={setDefaultClass}
-							content={
-								<StudentManageInfo
-									defaultClass={defaultClass}
-									classChange={classChange}
-								/>
-							}
+							defaultActiveClassId={setDefaultActiveClassId}
+							activeClassId={setActiveClassId}
 						/>
-						{/* <StudentManageInfo width={width} /> */}
+
+						<StudentManageInfo
+							width={width}
+							defaultActiveClassId={defaultActiveClassId}
+							activeClassId={activeClassId}
+						/>
 					</Card>
 				</div>
 			</ResizeObserver>

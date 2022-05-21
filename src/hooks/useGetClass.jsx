@@ -1,15 +1,15 @@
 import { message } from 'antd';
-import { useEffect, useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import classApi from '../api/classApi';
 
-function useGetClassName(socket) {
+function useGetClass(socket) {
 	const [loading, setLoading] = useState(false);
-	const [classList, setClassList] = useState([]);
-	const [updateClass, setUpdateClass] = useState(null);
+	const [classList, setclassList] = useState([]);
+	const [updateclass, setUpdateclass] = useState(null);
+
 	useEffect(() => {
 		socket?.on('updateClass', (data) => {
-			setUpdateClass(data);
+			setUpdateclass(data);
 		});
 	}, [socket]);
 
@@ -18,12 +18,12 @@ function useGetClassName(socket) {
 			setLoading(true);
 			const result = await classApi.get();
 
-			setClassList(result.data);
+			setclassList(result.data);
 		} catch (err) {
 			message.error(`${err}`);
 		}
 		setLoading(false);
-	}, [updateClass]);
+	}, [updateclass]);
 
 	return {
 		loading,
@@ -31,4 +31,4 @@ function useGetClassName(socket) {
 	};
 }
 
-export default useGetClassName;
+export default useGetClass;
