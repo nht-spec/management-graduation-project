@@ -4,6 +4,7 @@ import { Card } from 'antd';
 import ResizeObserver from 'rc-resize-observer';
 import React, { useState } from 'react';
 import Loading from '../../components/Shared/Loading';
+import ClassInfo from '../../components/StudentManagement/ClassInfo';
 
 const PageHeaderContainer = loadable(
 	() => import('../../containers/Shared/PageHeaderContainer'),
@@ -21,6 +22,8 @@ const StudentManageInfo = loadable(
 
 function StudentManageContainer(props) {
 	const [width, setWith] = useState(0);
+	const [classChange, setClassChange] = useState('');
+	const [defaultClass, setDefaultClass] = useState('');
 
 	return (
 		<>
@@ -37,7 +40,17 @@ function StudentManageContainer(props) {
 			>
 				<div className='page-section'>
 					<Card className='card-ms-form border-card mg-b-15'>
-						<StudentManageInfo width={width} />
+						<ClassInfo
+							classChange={setClassChange}
+							defaultClass={setDefaultClass}
+							content={
+								<StudentManageInfo
+									defaultClass={defaultClass}
+									classChange={classChange}
+								/>
+							}
+						/>
+						{/* <StudentManageInfo width={width} /> */}
 					</Card>
 				</div>
 			</ResizeObserver>

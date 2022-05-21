@@ -208,6 +208,9 @@ function TableDataGrid(props) {
 				caption='STT sinh viên làm cùng đề tài'
 			/>
 			<Column dataField='note' caption='Ghi chú' />
+			{/* <Column dataField='class' caption='Lớp' visible={false}>
+				<RequiredRule message='Nhập lớp' />
+			</Column> */}
 
 			<Column type='buttons' fixed={true} fixedPosition='right'>
 				<Button name='edit' />

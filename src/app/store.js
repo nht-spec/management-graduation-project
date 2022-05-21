@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import profileReducer from './profileSlice';
+import studentIdReducer from './studentIdSlice';
 const store = configureStore({
 	reducer: {
-		profile: profileReducer,
+		studentId: studentIdReducer,
 	},
 });
 

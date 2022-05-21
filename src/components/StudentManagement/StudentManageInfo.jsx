@@ -1,18 +1,20 @@
 import { message } from 'antd';
+import { exportDataGrid } from 'devextreme/excel_exporter';
+import { Workbook } from 'exceljs';
+import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import studentApi from '../../api/studentApi';
+import { addStudentId } from '../../app/studentIdSlice';
 import useGetStudentIdList from '../../hooks/useGetStudentIdList';
 import useGetStudentList from '../../hooks/useGetStudentList';
 import useSocket from '../../hooks/useSocket';
 import Paginations from '../Shared/Paginations';
+import { detailStudent } from './dataForm';
 import DetailStudentInfo from './DetailStudentInfo';
 import TableDataGrid from './TableDataGrid';
-import { Workbook } from 'exceljs';
-import { saveAs } from 'file-saver';
-import { exportDataGrid } from 'devextreme/excel_exporter';
-import { detailStudent } from './dataForm';
 
-function StudentManageInfo({ width }) {
+function StudentManageInfo({ width, classChange, defaultClass }) {
 	const [listSelect, setListSelect] = useState([]);
 	const pageSizeOptions = [5, 10, 15];
 	const [current, setCurrent] = useState(1);
@@ -23,18 +25,28 @@ function StudentManageInfo({ width }) {
 	const [isAddRow, setIsAddRow] = useState(false);
 	const [studentId, setStudentId] = useState('');
 	const [fields, setFields] = useState([{ name: [], value: '' }]);
+	const dispatch = useDispatch();
 
 	function onChange(current, pageSize) {
 		setCurrent(current);
 		setPageSize(pageSize);
 	}
+
 	const { socket } = useSocket();
 	const { studentIdList } = useGetStudentIdList(socket);
 	const { loading, updateStudent, studentList } = useGetStudentList(
 		socket,
 		current,
-		pageSize
+		pageSize,
+		classChange,
+		defaultClass
 	);
+
+	useEffect(() => {
+		const studentID = studentList?.results?.map((child) => child._id);
+		const action = addStudentId(studentID);
+		dispatch(action);
+	}, [studentList]);
 
 	const TitleLabel = () => {
 		return (
@@ -86,8 +98,13 @@ function StudentManageInfo({ width }) {
 	};
 
 	const onRowInserting = async (value) => {
+		const data = {
+			...value.data,
+			class: classChange ? classChange : defaultClass,
+		};
+
 		try {
-			await studentApi.create({ newListStudent: [value.data] });
+			await studentApi.create({ newListStudent: [data] });
 			message.success('Thêm thành công!');
 		} catch (err) {
 			if (err) {
