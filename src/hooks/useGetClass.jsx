@@ -13,16 +13,17 @@ function useGetClass(socket) {
 		});
 	}, [socket]);
 
-	useEffect(async () => {
-		try {
-			setLoading(true);
-			const result = await classApi.get();
-
-			setclassList(result.data);
-		} catch (err) {
-			message.error(`${err}`);
-		}
-		setLoading(false);
+	useEffect(() => {
+		(async () => {
+			try {
+				setLoading(true);
+				const result = await classApi.get();
+				setclassList(result.data);
+			} catch (err) {
+				message.error(`${err}`);
+			}
+			setLoading(false);
+		})();
 	}, [updateclass]);
 
 	return {

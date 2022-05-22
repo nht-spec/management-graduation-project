@@ -1,7 +1,7 @@
 import { BarsOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Menu, message, Modal, Select } from 'antd';
+import { Button, Dropdown, Menu, message, Modal, Select, Tag } from 'antd';
 import Text from 'antd/lib/typography/Text';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import classApi from '../../api/classApi';
 import studentApi from '../../api/studentApi';
@@ -11,14 +11,53 @@ import { dataFormAddClass } from './dataForm';
 function ClassAction(props) {
 	const { loading, classList } = props;
 	const [addClass, setAddClass] = useState(false);
+	const [isEmty, setIsEmty] = useState(false);
 	const [deleteClass, setDeleteClass] = useState(false);
-	const [keyId, setkeyId] = useState('');
-	const { Option } = Select;
+	const [keyId, setkeyId] = useState(null);
+
 	const form = useForm({
 		defaultValues: {
 			addclass: '',
 		},
 	});
+
+	useEffect(() => {
+		let componentMounted = true;
+		setTimeout(() => {
+			if (componentMounted && classList.length === 0) {
+				setAddClass(true);
+				setIsEmty(true);
+			}
+		}, 500);
+
+		return () => {
+			componentMounted = false;
+		};
+	}, []);
+
+	const transformed = classList.map(({ _id: value, name: label }) => ({
+		value,
+		label,
+	}));
+
+	function tagRender(props) {
+		const { label, closable, onClose } = props;
+
+		const onPreventMouseDown = (event) => {
+			event.preventDefault();
+			event.stopPropagation();
+		};
+		return (
+			<Tag
+				onMouseDown={onPreventMouseDown}
+				closable={closable}
+				onClose={onClose}
+				style={{ marginRight: 3 }}
+			>
+				{label}
+			</Tag>
+		);
+	}
 
 	const error = form.formState.errors;
 
@@ -37,28 +76,36 @@ function ClassAction(props) {
 	};
 
 	const onSubmit = async (value) => {
+		const data = value.addclass;
+		const multipleInput = data.split(' ').map((x) => {
+			return { ['name']: x };
+		});
+
 		try {
-			await classApi.create({ name: value.addclass });
+			await classApi.create({ newClassList: multipleInput });
 			message.success('Thêm thành công!');
+			form.reset();
 		} catch (err) {
-			message.error(`${err}`);
+			message.error(`${err.response.data}`);
 		}
-		form.reset();
 	};
+
 	const onChange = (keyId) => {
 		setkeyId(keyId);
 	};
 
-	const handleDelete = async (keyId) => {
+	const handleDelete = () => {
 		if (keyId) {
-			try {
-				await classApi.delete({ classId: keyId });
-				await studentApi.delete({ listSelect: [keyId] });
-				message.success('Xoá thành công ');
-				setkeyId('');
-			} catch (err) {
-				message.error(`${err}`);
-			}
+			(async () => {
+				try {
+					await classApi.deleteall({ listSelect: keyId });
+					await studentApi.delete({ listSelect: keyId });
+					message.success('Xoá thành công!');
+					setkeyId(null);
+				} catch (err) {
+					message.error(`${err}`);
+				}
+			})();
 		}
 	};
 
@@ -85,7 +132,7 @@ function ClassAction(props) {
 		<>
 			<Modal
 				centered={true}
-				title='Thêm lớp'
+				title='Thêm lớp mới'
 				visible={addClass}
 				closable={false}
 				footer={[
@@ -97,7 +144,7 @@ function ClassAction(props) {
 					>
 						Lưu
 					</Button>,
-					<Button key='back' onClick={handleCancelAdd}>
+					<Button key='back' onClick={handleCancelAdd} disabled={isEmty}>
 						Huỷ
 					</Button>,
 				]}
@@ -119,7 +166,7 @@ function ClassAction(props) {
 						key='submit'
 						type='primary'
 						loading={loading}
-						onClick={() => handleDelete(keyId)}
+						onClick={() => handleDelete()}
 					>
 						Xoá
 					</Button>,
@@ -131,14 +178,13 @@ function ClassAction(props) {
 				<Select
 					placeholder='Chọn lớp cần xoá'
 					onChange={onChange}
-					value={keyId}
-				>
-					{classList?.map((child, idx) => (
-						<Option key={idx} value={child._id}>
-							{child.name}
-						</Option>
-					))}
-				</Select>
+					allowClear={true}
+					mode='multiple'
+					showArrow
+					tagRender={tagRender}
+					style={{ width: '100%' }}
+					options={transformed}
+				></Select>
 			</Modal>
 
 			<Dropdown overlay={menu} trigger={['click']}>

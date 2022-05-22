@@ -20,6 +20,11 @@ const studentApi = {
 		return axiosApi.get(url);
 	},
 
+	deleteselect(listSelect) {
+		const url = '/api/student/select/delete';
+		return axiosApi.delete(url, { data: listSelect });
+	},
+
 	delete(listSelect) {
 		const url = '/api/student/delete';
 		return axiosApi.delete(url, { data: listSelect });

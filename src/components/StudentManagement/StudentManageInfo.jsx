@@ -66,7 +66,7 @@ function StudentManageInfo({ width, activeClassId, defaultActiveClassId }) {
 
 		if (data) {
 			try {
-				await studentApi.delete({ listSelect: [data] });
+				await studentApi.deleteselect({ listSelect: [data] });
 				message.success('Xoá thành công!');
 			} catch (err) {
 				message.error(err);
@@ -78,7 +78,7 @@ function StudentManageInfo({ width, activeClassId, defaultActiveClassId }) {
 	const handleDelete = async () => {
 		if (listSelect.length !== 0) {
 			try {
-				await studentApi.delete({ listSelect });
+				await studentApi.deleteselect({ listSelect });
 				message.success('Xoá thành công!');
 			} catch (err) {
 				message.error(err);

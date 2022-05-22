@@ -12,7 +12,7 @@ const MESSAGE = {
 		phone: 'Nhập số điện thoại',
 		samestudentwork: 'Nhập stt sinh viên làm cùng đề tài',
 		note: 'Nhập ghi chú',
-		addclass: 'Nhập mã lớp',
+		addclass: 'Nhập mã một lớp hoặc nhiều lớp cách nhau bởi dấu cách',
 	},
 	REQUIRE: {
 		email: 'Email là bắt buộc',
