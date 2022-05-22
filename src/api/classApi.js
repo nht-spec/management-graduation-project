@@ -19,5 +19,10 @@ const classApi = {
 		const url = `/api/class/${classId.classId}`;
 		return axiosApi.delete(url, { data: classId });
 	},
+
+	deleteall(listSelect) {
+		const url = '/api/class/delete';
+		return axiosApi.delete(url, { data: listSelect });
+	},
 };
 export default classApi;
