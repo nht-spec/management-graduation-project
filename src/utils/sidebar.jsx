@@ -58,7 +58,7 @@ export const getGeneralSidebarMenu = (collapsed) => [
 
 			{
 				key: 'time_register_specialized',
-				label: 'Thời gian đăng kí',
+				label: 'Thời gian đăng ký',
 				icon: <FieldTimeOutlined className='sidebar' />,
 			},
 		],
@@ -85,7 +85,7 @@ export const getGeneralSidebarMenu = (collapsed) => [
 
 			{
 				key: 'time_register_graduation',
-				label: 'Thời gian đăng kí',
+				label: 'Thời gian đăng ký',
 				icon: <FieldTimeOutlined className='sidebar' />,
 			},
 		],

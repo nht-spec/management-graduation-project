@@ -11,6 +11,7 @@ import dashboardRoutes from './route-sets/dashboard';
 import demoRoutes from './route-sets/demo';
 import studentmanagementRoutes from './route-sets/studentmanagement';
 import lecturermanagementRoutes from './route-sets/lecturermanagement';
+import timeregisterspecializedRoutes from './route-sets/timeregisterspecialized';
 
 const AuthenticatedLayout = loadable(() =>
 	import('../layouts/AuthenticatedLayout')
@@ -26,6 +27,7 @@ const Routes = () => {
 		...demoRoutes,
 		...studentmanagementRoutes,
 		...lecturermanagementRoutes,
+		...timeregisterspecializedRoutes,
 	];
 
 	return (

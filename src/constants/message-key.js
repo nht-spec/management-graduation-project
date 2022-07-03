@@ -13,6 +13,8 @@ const MESSAGE = {
 		samestudentwork: 'Nhập stt sinh viên làm cùng đề tài',
 		note: 'Nhập ghi chú',
 		addclass: 'Nhập mã một lớp hoặc nhiều lớp cách nhau bởi dấu cách',
+		endtime: 'Thời gian kết thúc',
+		rangetime: 'Khoảng thời gian',
 	},
 	REQUIRE: {
 		email: 'Email là bắt buộc',
@@ -20,6 +22,8 @@ const MESSAGE = {
 		mssv: 'Mã số sinh viên là bắt buộc',
 		name: 'Họ và tên là bắt buộc',
 		addclass: 'Mã lớp là bắt buộc',
+		endtime: 'Chọn thời gian kết thúc',
+		rangetime: 'Chọn khoảng thời gian',
 	},
 	PATTERN: {
 		email: 'Email không hợp lệ',

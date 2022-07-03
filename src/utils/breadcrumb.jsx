@@ -8,5 +8,10 @@ const getNameMap = (entityId, entityDisplay, t) => ({
 		displayName: 'Quản lý giảng viên',
 		isNavigable: true,
 	},
+
+	'/time_register_specialized': {
+		displayName: 'Thời gian đăng ký',
+		isNavigable: true,
+	},
 });
 export default getNameMap;
